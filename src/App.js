@@ -21,6 +21,7 @@ import AdditionalServiceOfferPage from './pages/AdditionalServiceOfferPage';
 import OverviewOfSelectedProviderPage from './pages/OverviewOfSelectedProviderPage';
 import SuccessPayloadPage from './pages/SuccessPayloadPage';
 import NotFoundPage from './pages/NotFoundPage';
+import ReservationsPage from './pages/ReservationsPage';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
         <Route path="/registracija" element={<UserRegistrationPage />}/>
         <Route path="/pregled-izabranih-usluga" element={<OverviewOfSelectedProviderPage/>}/>
         <Route path="/uspesno-placanje" element={<SuccessPayloadPage/>}/>
+        <Route path="/rezervacije" element={<ReservationsPage/>}/>
         <Route
           path="/pruzaoci-usluga/registracija"
           element={

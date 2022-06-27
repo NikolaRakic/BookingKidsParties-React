@@ -2,13 +2,6 @@ import { Rating } from "react-simple-star-rating";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 export default function StarsRating(props) {
-  const [rating, setRating] = useState(0);
-
-  // Catch Rating value
-  const handleRating = (rate) => {
-    setRating(rate);
-    console.log(rating);
-  };
 
   const existRate = (rate) => {
     if (rate !== 0) {
@@ -31,7 +24,7 @@ export default function StarsRating(props) {
           fillColor="orange"
           emptyColor="gray"
         />
-        <p className="rating-value-p">{props.ratingValue}</p>
+        <p className="rating-value-p">{Number((props.ratingValue).toFixed(1))}</p>
       </div>
 
       {existRate(props.countOfRate) ? (

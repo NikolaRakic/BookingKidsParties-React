@@ -49,6 +49,7 @@ export default function Navigation() {
               </>
             ) : (
               <>
+                <Nav.Link href={"/rezervacije"} className={`${pathname.match("/rezervacije") ? "active" : ""}`}>Rezervacije</Nav.Link>
                 <Nav.Link>{AuthenticationService.getUsername()}</Nav.Link>
                 <Nav.Link onClick={logOut}>Odjava</Nav.Link>
                 {AuthenticationService.getRole() === "ROLE_ADMINISTRATOR" ? (
@@ -74,7 +75,6 @@ export default function Navigation() {
                   </>
                 ) : (
                   <>
-                    <Nav.Link>Rezervacije</Nav.Link>
                     {AuthenticationService.getRole() ===
                     "ROLE_SERVICE_PROVIDER" ? (
                       <>

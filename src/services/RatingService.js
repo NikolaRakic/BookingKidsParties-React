@@ -7,6 +7,10 @@ const ratingService = {
 
   getAllRatingByServiceProviderId(serviceProviderId){
     return BookingKidsPartiesClient.get(`/ratings/${serviceProviderId}`);
+  },
+
+  saveRating(requestData){
+    return BookingKidsPartiesClient.post("/ratings", requestData)
   }
 
 };
