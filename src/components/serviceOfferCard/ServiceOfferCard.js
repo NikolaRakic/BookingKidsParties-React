@@ -53,7 +53,7 @@ export default function ServiceOfferCard(props) {
           loading="lazy"
         />
         <Card.Body>
-          <Card.Title></Card.Title>
+          <Card.Title>{props.offer.name}</Card.Title>
           <Card.Text>
             <ServiceOfferCardText
               offer={props.offer}

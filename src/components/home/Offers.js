@@ -44,7 +44,6 @@ export default function Ofers(props) {
   return (
     <div>
       <div className="card-div">
-      <FontAwesomeIcon icon={faArrowAltCircleRight} />
         {offersData.map((offer, index) => {
           return (
             <ServiceOfferCard

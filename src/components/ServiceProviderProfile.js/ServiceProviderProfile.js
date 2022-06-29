@@ -19,7 +19,7 @@ export default function ServiceProviderProfile(props) {
 
   return (
     <>
-      <h2 className="title">{serviceProvider.name}</h2>
+      <h2 className="title">{serviceProvider.username}</h2>
 
       <div className="profile">
         <PhotoSlider

@@ -3,12 +3,15 @@ import { AuthenticationService } from "../../services/AuthenticationService";
 import Table from "react-bootstrap/Table";
 import { ReservationService } from "../../services/ReservationService";
 import ReservationsTableRow from "./ReservationsTableRow";
+import Pagination1 from "../pagination/Pagination";
 
 export default function Reservations() {
   const [reservations, setReservations] = useState([]);
   const userRole = AuthenticationService.getRole();
   const userId = AuthenticationService.getUserId();
   const [isDisabled, setIsDisabled] = useState(false);
+  const [totalPages, setTotalPages] = useState() 
+  const [page, setPage] = useState(0);
 
   useEffect(() => {
     setIsDisabled(false);
@@ -17,23 +20,27 @@ export default function Reservations() {
       window.location.assign("/not-found");
     }
     getReservations(userRole, userId);
-  }, [isDisabled]);
+  }, [isDisabled, page]);
 
   async function getReservations(userRole, userId) {
     try {
       if (userRole === "ROLE_USER") {
         const response = await ReservationService.getAllReservationsByUser(
-          userId
+          userId, page
         );
-        console.log(response);
+        console.log(response.headers);
         setReservations(response.data);
+        setTotalPages(response.headers.total)
       } else if (userRole === "ROLE_SERVICE_PROVIDER") {
         const response =
-          await ReservationService.getAllReservationsByServiceProvider(userId);
+          await ReservationService.getAllReservationsByServiceProvider(userId, page);
         setReservations(response.data);
+        setTotalPages(response.headers.total)
       } else if (userRole === "ROLE_ADMINISTRATOR") {
-        const response = await ReservationService.getAllReservations();
+        const response = await ReservationService.getAllReservations(page);
+        console.log(response)
         setReservations(response.data);
+        setTotalPages(response.headers.total)
       }
     } catch (error) {
       console.error(`Greška prilikom dobavljanja dodatnih usluga ${error}`);
@@ -42,6 +49,7 @@ export default function Reservations() {
 
   return (
     <div className="center">
+        <h1 className="title">Rezervacije</h1>
       <Table striped bordered hover className="table-center">
         <thead>
           <tr>
@@ -69,6 +77,11 @@ export default function Reservations() {
           })}
         </tbody>
       </Table>
+      <Pagination1 
+        pageNumbers={totalPages}
+        changePage={setPage}
+        currentPage={page}
+      />
     </div>
   );
 }

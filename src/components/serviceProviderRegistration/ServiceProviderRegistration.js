@@ -64,7 +64,7 @@ export default function ServiceProviderRegistration() {
         <Modal.Body>Uspešno ste registrovali novog pružaoca usluga!</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
-           Zatvori
+            Zatvori
           </Button>
         </Modal.Footer>
       </Modal>

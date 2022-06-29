@@ -28,9 +28,6 @@ export default function ServiceOfferCardText(props) {
   }
   return (
     <>
-      {props.offer.serviceProviderUsername}
-      <br />
-      {props.additionalServiceOfferType}:
       <Link
         to={`/pruzaoci-usluga/${props.offer.serviceProviderId}`}
         className="link"
