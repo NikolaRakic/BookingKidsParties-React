@@ -1,19 +1,19 @@
 import { useState, useEffect } from "react";
 import ServiceOfferCard from "../serviceOfferCard/ServiceOfferCard";
-import {ServiceOfferService} from "../../services/ServiceOfferService"
+import { ServiceOfferService } from "../../services/ServiceOfferService";
 import moment from "moment";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowAltCircleRight } from "@fortawesome/free-solid-svg-icons";
 
 export default function Ofers(props) {
   const [offersData, setOffers] = useState([]);
   const [durationOfHours, setDurationOfHours] = useState();
+  const [sortType, setSortType] = useState("averageRating");
+  const [sortMethod, setSortMethod] = useState("descending");
   const dataForReq = props.formData;
 
   useEffect(() => {
-    findAllPlayroomsOffersByBookingDetails({...dataForReq });
+    findAllPlayroomsOffersByBookingDetails({ ...dataForReq });
     differenceBetweenTwoTimes(dataForReq.startTime, dataForReq.endTime);
-  }, [dataForReq]);
+  }, [dataForReq, sortType, sortMethod]);
 
   const differenceBetweenTwoTimes = (startTime, endTime) => {
     let hours = parseFloat(
@@ -30,19 +30,45 @@ export default function Ofers(props) {
     startTime,
     endTime,
   }) => {
-    const offers = await ServiceOfferService.findAllPlayroomsOffersByBookingDetails(
-      city,
-      parseInt(numberOfKids),
-      parseInt(numberOfAdults),
-      date,
-      startTime,
-      endTime
-    );
-    setOffers(offers.data);
+    const offers =
+      await ServiceOfferService.findAllPlayroomsOffersByBookingDetails(
+        city,
+        parseInt(numberOfKids),
+        parseInt(numberOfAdults),
+        date,
+        startTime,
+        endTime
+      );
+    sortArray(sortType, offers.data, sortMethod);
+  };
+
+  const sortArray = (type, offers, sortMethod) => {
+    let sorted;
+    if (sortMethod == "ascending")
+      sorted = [...offers].sort((a, b) => a[type] - b[type]);
+    else sorted = [...offers].sort((a, b) => b[type] - a[type]);
+    setOffers(sorted);
   };
 
   return (
     <div>
+      <div className="select-input-div">
+        <p>Sortiraj po </p>
+        <select
+          className="select-input"
+          onChange={(e) => setSortType(e.target.value)}
+        >
+          <option value="averageRating">Oceni</option>
+          <option value="pricePerHour">Ceni</option>
+        </select>
+        <select
+          className="select-input"
+          onChange={(e) => setSortMethod(e.target.value)}
+        >
+          <option value="descending">Opadajuće</option>
+          <option value="ascending">Rastuće</option>
+        </select>
+      </div>
       <div className="card-div">
         {offersData.map((offer, index) => {
           return (

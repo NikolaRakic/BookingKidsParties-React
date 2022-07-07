@@ -447,3 +447,14 @@ p {
   padding-top: 15px;
 }
 
+.select-input-div{
+  text-align: center;
+  display: list-item;
+  margin-top: 10px;
+}
+
+.select-input{
+  border-radius: 16px;
+  margin: -3px 1px 10px;
+  width: 120px;
+}

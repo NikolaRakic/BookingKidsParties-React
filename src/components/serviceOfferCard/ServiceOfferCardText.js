@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { useRef, useState } from "react";
+import { Rating } from "react-simple-star-rating";
 
 export default function ServiceOfferCardText(props) {
   const [showPriceDetails, setShowPriceDetails] = useState(false);
@@ -34,6 +35,17 @@ export default function ServiceOfferCardText(props) {
       >
         {props.offer.serviceProviderUsername}
       </Link>
+      
+        <Rating
+          readonly
+          size={40}
+          ratingValue={props.offer.averageRating * 20}
+          label
+          //transition
+          fillColor="orange"
+          emptyColor="gray"
+        />
+      
       <br />
       <br />
       Ukupna cena:{totalPrice}din

@@ -10,7 +10,6 @@ export default function ServiceOfferCard(props) {
   const [isChosen, setIsChosen] = useState();
 
   let photo = require("../../assets/photos/no_image.jpg");
-  console.log(props.offer)
   if (props.offer.serviceProviderPhotos.length !== 0) {
     photo = `data:image;base64,${props.offer.serviceProviderPhotos[0].data}`;
   }
