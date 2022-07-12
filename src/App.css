@@ -458,3 +458,12 @@ p {
   margin: -3px 1px 10px;
   width: 120px;
 }
+
+.before-reservation{
+  background-color: #ff000014;
+  
+}
+
+.after-reservation{
+  background-color: #00ff3714;
+}

@@ -2,9 +2,7 @@ import { ServiceProviderService } from "../../services/ServiceProviderService";
 import React from "react";
 import { useEffect, useState } from "react";
 import ServiceProviderCard from "./ServiceProviderCard";
-
 import Submenu from "./Submenu";
-import Pagination1 from "../pagination/Pagination";
 import { CooperationService } from "../../services/CooperationService";
 import { AuthenticationService } from "../../services/AuthenticationService";
 

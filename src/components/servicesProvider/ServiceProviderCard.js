@@ -108,7 +108,7 @@ export default function ServiceProviderCard(props) {
             />
             {props.service.city} , {props.service.adress}
           </Card.Text>
-          <Button variant="outline-primary" onClick={() => setModalShow(true)}>
+          <Button variant="outline-info" onClick={() => setModalShow(true)}>
             Prikaži detalje
           </Button>
           &nbsp;
@@ -130,7 +130,7 @@ export default function ServiceProviderCard(props) {
                   {currentCooperation ? (
                     <>
                       {currentCooperation.confirmed === true ? (
-                        <Button variant="danger" onClick={() => cancelCooporationClick()}>Otkaži saradnju</Button>
+                        <Button variant="outline-danger" onClick={() => cancelCooporationClick()}>Otkaži saradnju</Button>
                       ) : (
                         <>
                           {currentCooperation.requestSender ===
@@ -143,7 +143,7 @@ export default function ServiceProviderCard(props) {
                       )}
                     </>
                   ) : (
-                    <Button onClick={(id) => sendRequestClick(props.service.id)}>Pošalji zahtev</Button>
+                    <Button variant="outline-primary" onClick={(id) => sendRequestClick(props.service.id)}>Pošalji zahtev</Button>
                   )}
                 </>
               ) : (

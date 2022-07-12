@@ -28,7 +28,6 @@ export default function Reservations() {
         const response = await ReservationService.getAllReservationsByUser(
           userId, page
         );
-        console.log(response.headers);
         setReservations(response.data);
         setTotalPages(response.headers.total)
       } else if (userRole === "ROLE_SERVICE_PROVIDER") {

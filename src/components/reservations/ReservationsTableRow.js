@@ -10,7 +10,7 @@ export default function ReservationsTableRow(props) {
 
   return (
     <>
-      <tr key={props.index}>
+      <tr key={props.index} className={new Date(reservation.dateOfReservation) <= new Date()? "before-reservation" : "after-reservation"}>
         {props.userRole !== "ROLE_USER" && <td>{reservation.userEmail}</td>}
 
         <td>{reservation.startTime}</td>

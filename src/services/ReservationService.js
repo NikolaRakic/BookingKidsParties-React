@@ -12,13 +12,13 @@ async function createReservation(newReservation) {
   }
 
   async function getAllReservationsByUser(userId, page) {
-    return await BookingKidsPartiesClient.get("reservations/user/" + userId + "?size=5&page=" + page);
+    return await BookingKidsPartiesClient.get("reservations/user/" + userId + "?pageSize=5&pageNo=" + page);
   }
 
   async function getAllReservationsByServiceProvider(serviceProviderId, page) {
-    return await BookingKidsPartiesClient.get("reservations/serviceProvider/" + serviceProviderId);
+    return await BookingKidsPartiesClient.get("reservations/serviceProvider/" + serviceProviderId + "?pageSize=5&pageNo=" + page);
   }
 
   async function getAllReservations(page) {
-    return await BookingKidsPartiesClient.get("reservations?size=5&page=" + page);
+    return await BookingKidsPartiesClient.get("reservations?pageSize=5&pageNo=" + page);
   }
