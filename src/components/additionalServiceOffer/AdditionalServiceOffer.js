@@ -5,6 +5,7 @@ import ServiceOfferCard from "../serviceOfferCard/ServiceOfferCard";
 import { ServiceOfferService } from "../../services/ServiceOfferService";
 
 import ArrowAltCircle from "../arrowNavigation/ArrowAltCircle";
+import { TYPE_OF_SERVICE_PROVIDER } from "../../const/const";
 
 export default function AdditionalServiceOffer() {
   const [additionalServiceOffers, setAdditionalServiceOffers] = useState([]);
@@ -18,16 +19,16 @@ export default function AdditionalServiceOffer() {
 
   let localStorageNameItem = "";
 
-  if (additionalServiceOfferType === "KETERING") {
+  if (additionalServiceOfferType === TYPE_OF_SERVICE_PROVIDER.CATERING) {
     nextUrl = "/dodatna-usluga/animator";
     backUrl = "/pocetna";
     localStorageNameItem = "cateringOfferId";
   } else if (additionalServiceOfferType === "ANIMATOR") {
     nextUrl = "/pregled-izabranih-usluga";
-    backUrl = "/dodatna-usluga/ketering";
+    backUrl = "/dodatna-usluga/catering";
     localStorageNameItem = "animatorOfferId";
   } else {
-    navigate("/dodatna-usluga/ketering");
+    navigate("/dodatna-usluga/catering");
   }
   let dataForRequest = {
     city: localStorage.getItem("city"),

@@ -4,6 +4,7 @@ import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { useRef, useState } from "react";
 import { Rating } from "react-simple-star-rating";
+import { TRANSLETE_TYPE_OF_SERVICE_PROVIDER, TYPE_OF_SERVICE_PROVIDER } from "../../const/const";
 
 export default function ServiceOfferCardText(props) {
   const [showPriceDetails, setShowPriceDetails] = useState(false);
@@ -12,7 +13,7 @@ export default function ServiceOfferCardText(props) {
   let totalPrice = 999999999;
   let priceDescription = "";
 
-  if (props.additionalServiceOfferType === "KETERING") {
+  if (props.additionalServiceOfferType === TYPE_OF_SERVICE_PROVIDER.CATERING) {
     totalPrice =
       priceDetails.pricePerKid * priceDetails.numberOfKids +
       priceDetails.pricePerAdult * priceDetails.numberOfAdults;

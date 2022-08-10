@@ -1,5 +1,6 @@
 import React from "react";
 import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
+import { ROLE } from "../../const/const";
 import { AuthenticationService } from "../../services/AuthenticationService";
 
 export default function Navigation() {
@@ -52,7 +53,7 @@ export default function Navigation() {
                 <Nav.Link href={"/rezervacije"} className={`${pathname.match("/rezervacije") ? "active" : ""}`}>Rezervacije</Nav.Link>
                 <Nav.Link>{AuthenticationService.getUsername()}</Nav.Link>
                 <Nav.Link onClick={logOut}>Odjava</Nav.Link>
-                {AuthenticationService.getRole() === "ROLE_ADMINISTRATOR" ? (
+                {AuthenticationService.getRole() === ROLE.ROLE_ADMINISTRATOR ? (
                   <>
                     <NavDropdown title="Admin" id="basic-nav-dropdown">
                       <NavDropdown.Item href="/pruzaoci-usluga/registracija">
@@ -76,7 +77,7 @@ export default function Navigation() {
                 ) : (
                   <>
                     {AuthenticationService.getRole() ===
-                    "ROLE_SERVICE_PROVIDER" ? (
+                    ROLE.ROLE_SERVICE_PROVIDER ? (
                       <>
                       <Nav.Link href="/pruzaoci-usluga/dodaj-ponudu">Dodaj ponudu</Nav.Link>
                       <Nav.Link href={"/izmeni-profil/" + AuthenticationService.getUserId()}>Izmeni profil</Nav.Link>

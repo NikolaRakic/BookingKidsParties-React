@@ -44,7 +44,7 @@ export default function ServiceOfferCard(props) {
     <div
       className={`one-card ${isChosenOffer(props.offer.id) ? "chosen" : ""}`}
     >
-      <Card className={!props.visible ? "fadeIn" : "fadeOut"}>
+      <Card loading="lazy" className={!props.visible ? "fadeIn" : "fadeOut"}>
         <Card.Img
           className="card-photo"
           variant="top"

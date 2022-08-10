@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Button, Alert } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import { AuthenticationService } from "../../services/AuthenticationService";
 import { UserService } from "../../services/UserService";
 import UserRegistrationForm from "./UserRegistrationForm";
@@ -15,22 +16,31 @@ export default function UserRegistration() {
   });
 
   const [failRegistrationMessage, setFailRegistrationMessage] = useState(false);
-  const [successRegistrationMessage, setSuccessRegistrationMessage] = useState(false);
+  const [successRegistrationMessage, setSuccessRegistrationMessage] =
+    useState(false);
+  let navigate = useNavigate();
+  const [failRegistrationMessageText, setFailRegistrationMessageText] = useState("");
 
   const handleFormInputChange = (name) => (event) => {
     const val = event.target.value;
     setNewUser({ ...newUser, [name]: val });
   };
 
-  const registraionSubmit = async () => {
+  const registraionSubmit = () => {
     if (UserService.isValidDataForRegistration(newUser)) {
-        await UserService.registration(newUser);
-        setFailRegistrationMessage(false);
-        setSuccessRegistrationMessage(true);
-        setTimeout(4000);
-        window.location.assign("/prijava");
-    } else 
-        setFailRegistrationMessage(true);
+      UserService.registration(newUser)
+        .then(() => {
+          setFailRegistrationMessage(false);
+          setSuccessRegistrationMessage(true);
+          setTimeout(4000);
+          navigate("/prijava");
+        })
+        .catch((error) => {
+          setFailRegistrationMessage(true);
+          setFailRegistrationMessageText(error.response.data);
+        });
+    } else setFailRegistrationMessage(true);
+            setFailRegistrationMessageText("Popunite sva polja!")
   };
 
   return (
@@ -38,14 +48,23 @@ export default function UserRegistration() {
       {AuthenticationService.getRole() === null ? (
         <div className="login-form">
           <h3 className="text-center">Registracija</h3>
-            <UserRegistrationForm handleFormInputChange={handleFormInputChange} newUser={newUser}/>
+          <UserRegistrationForm
+            handleFormInputChange={handleFormInputChange}
+            newUser={newUser}
+          />
           {failRegistrationMessage ? (
-            <Alert variant="danger" style={{ width: "100%", marginTop: "20px"}}>
-                <Alert.Heading>Popunite sva polja</Alert.Heading>
+            <Alert
+              variant="danger"
+              style={{ width: "100%", marginTop: "20px" }}
+            >
+              <Alert.Heading>{failRegistrationMessageText}</Alert.Heading>
             </Alert>
           ) : null}
           {successRegistrationMessage ? (
-            <Alert variant="success" style={{ width: "100%", marginTop: "20px"}}>
+            <Alert
+              variant="success"
+              style={{ width: "100%", marginTop: "20px" }}
+            >
               <Alert.Heading>Uspesna registracija!</Alert.Heading>
             </Alert>
           ) : null}

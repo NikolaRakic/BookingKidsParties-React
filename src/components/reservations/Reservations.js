@@ -4,6 +4,7 @@ import Table from "react-bootstrap/Table";
 import { ReservationService } from "../../services/ReservationService";
 import ReservationsTableRow from "./ReservationsTableRow";
 import Pagination1 from "../pagination/Pagination";
+import { ROLE } from "../../const/const";
 
 export default function Reservations() {
   const [reservations, setReservations] = useState([]);
@@ -24,18 +25,18 @@ export default function Reservations() {
 
   async function getReservations(userRole, userId) {
     try {
-      if (userRole === "ROLE_USER") {
+      if (userRole === ROLE.ROLE_USER) {
         const response = await ReservationService.getAllReservationsByUser(
           userId, page
         );
         setReservations(response.data);
         setTotalPages(response.headers.total)
-      } else if (userRole === "ROLE_SERVICE_PROVIDER") {
+      } else if (userRole === ROLE.ROLE_SERVICE_PROVIDER) {
         const response =
           await ReservationService.getAllReservationsByServiceProvider(userId, page);
         setReservations(response.data);
         setTotalPages(response.headers.total)
-      } else if (userRole === "ROLE_ADMINISTRATOR") {
+      } else if (userRole === ROLE.ROLE_ADMINISTRATOR) {
         const response = await ReservationService.getAllReservations(page);
         console.log(response)
         setReservations(response.data);
@@ -52,7 +53,7 @@ export default function Reservations() {
       <Table striped bordered hover className="table-center">
         <thead>
           <tr>
-            {userRole !== "ROLE_USER" && <th>Email korisnika</th>}
+            {userRole !== ROLE.ROLE_USER && <th>Email korisnika</th>}
             <th>Početak</th>
             <th>Kraj</th>
             <th>Datum</th>

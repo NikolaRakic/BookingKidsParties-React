@@ -1,6 +1,7 @@
 import { FormControl, Form } from "react-bootstrap";
 import { TimePicker } from "react-rainbow-components";
 import moment from "moment";
+import { TYPE_OF_SERVICE_PROVIDER } from "../../const/const";
 
 export default function ServiceProviderRegistrationForm(props) {
 
@@ -117,9 +118,9 @@ export default function ServiceProviderRegistrationForm(props) {
         className="form-input-registration input-group"
       >
         <option>Izaberite vrstu usluge</option>
-        <option value="IGRAONICA">Igraonica</option>
-        <option value="ANIMATOR">Animator</option>
-        <option value="KETERING">Ketering</option>
+        <option value={TYPE_OF_SERVICE_PROVIDER.PLAYROOM}>Igraonica</option>
+        <option value={TYPE_OF_SERVICE_PROVIDER.ANIMATOR}>Animator</option>
+        <option value={TYPE_OF_SERVICE_PROVIDER.CATERING}>Ketering</option>
       </Form.Select>
     </>
   );

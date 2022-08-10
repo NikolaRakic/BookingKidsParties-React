@@ -6,6 +6,7 @@ import { ServiceOfferService } from "../../services/ServiceOfferService";
 import {AuthenticationService} from "../../services/AuthenticationService";
 import AdditionalInformationsForm from "./AdditionalInformationsForm";
 import PayloadModal from "./PayloadModal";
+import { TYPE_OF_SERVICE_PROVIDER } from "../../const/const";
 
 export default function OverviewOfSelectedProvider() {
   const playroomOfferId = localStorage.getItem("playroomOfferId");
@@ -103,7 +104,7 @@ export default function OverviewOfSelectedProvider() {
               offer={playroomOffer}
               nextUrl=""
               showButton={false}
-              additionalServiceOfferType="IGRAONICA"
+              additionalServiceOfferType={TYPE_OF_SERVICE_PROVIDER.PLAYROOM}
             />
           )}
 
@@ -116,7 +117,7 @@ export default function OverviewOfSelectedProvider() {
               offer={cateringOffer}
               nextUrl=""
               showButton={false}
-              additionalServiceOfferType="KETERING"
+              additionalServiceOfferType={TYPE_OF_SERVICE_PROVIDER.CATERING}
             />
           )}
 
@@ -129,7 +130,7 @@ export default function OverviewOfSelectedProvider() {
               offer={animatorOffer}
               nextUrl=""
               showButton={false}
-              additionalServiceOfferType="ANIMATOR"
+              additionalServiceOfferType={TYPE_OF_SERVICE_PROVIDER.ANIMATOR}
             />
           )}
 

@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { Button, FormControl } from "react-bootstrap";
+import { FormControl } from "react-bootstrap";
 import { AuthenticationService } from "../../services/AuthenticationService";
 
 export default function AdditionalInformationsForm(props) {

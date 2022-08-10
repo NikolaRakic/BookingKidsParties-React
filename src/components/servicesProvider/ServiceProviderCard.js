@@ -1,10 +1,11 @@
 import { Card, Button } from "react-bootstrap";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ServiceProviderModal from "./ServiceProviderModal";
 import { Link } from "react-router-dom";
 import { AuthenticationService } from "../../services/AuthenticationService";
 import { Rating } from "react-simple-star-rating";
 import { CooperationService } from "../../services/CooperationService";
+import { ROLE, TYPE_OF_SERVICE_PROVIDER } from "../../const/const";
 
 export default function ServiceProviderCard(props) {
   const loggedUserRole = AuthenticationService.getRole();
@@ -43,28 +44,38 @@ export default function ServiceProviderCard(props) {
     );
   }
 
-  function getCooperationRequestDTO(){
+  function getCooperationRequestDTO() {
     let dataForRequest = {
       playroomId: "",
-      cooperationServiceId: ""
-    }
-    if(props.service.typeOfServiceProvider === "IGRAONICA" && loggedServiceProvider.typeOfServiceProvider !== "IGRAONICA"){
+      cooperationServiceId: "",
+    };
+    if (
+      props.service.typeOfServiceProvider ===
+        TYPE_OF_SERVICE_PROVIDER.PLAYROOM &&
+      loggedServiceProvider.typeOfServiceProvider !==
+        TYPE_OF_SERVICE_PROVIDER.PLAYROOM
+    ) {
       dataForRequest.cooperationServiceId = loggedServiceProvider.id;
       dataForRequest.playroomId = props.service.id;
-    }
-    else if(props.service.typeOfServiceProvider !== "IGRAONICA" && loggedServiceProvider.typeOfServiceProvider === "IGRAONICA"){
+    } else if (
+      props.service.typeOfServiceProvider !==
+        TYPE_OF_SERVICE_PROVIDER.PLAYROOM &&
+      loggedServiceProvider.typeOfServiceProvider ===
+        TYPE_OF_SERVICE_PROVIDER.PLAYROOM
+    ) {
       dataForRequest.cooperationServiceId = props.service.id;
       dataForRequest.playroomId = loggedServiceProvider.id;
-    }
-    else{
-      alert("greska!")
+    } else {
+      alert("greska!");
     }
     return dataForRequest;
   }
 
   const sendRequestClick = async (id) => {
     try {
-      await CooperationService.sendCooperationRequest(getCooperationRequestDTO());
+      await CooperationService.sendCooperationRequest(
+        getCooperationRequestDTO()
+      );
       props.setChangeCooporations(true);
     } catch (error) {
       alert("Greska! " + error);
@@ -72,14 +83,14 @@ export default function ServiceProviderCard(props) {
   };
 
   const cancelCooporationClick = async () => {
-    try{
+    try {
       const data = getCooperationRequestDTO();
       await CooperationService.cancelCooperation(data);
       props.setChangeCooporations(true);
-    } catch (error){
-      alert("Greska! " +error)
+    } catch (error) {
+      alert("Greska! " + error);
     }
-  }
+  };
 
   return (
     <div className="one-card" key={props.id}>
@@ -112,38 +123,54 @@ export default function ServiceProviderCard(props) {
             Prikaži detalje
           </Button>
           &nbsp;
-          {loggedUserRole === "ROLE_ADMINISTRATOR" ? (
-            <Button variant="outline-danger">
-              Obriši
-            </Button>
+          {loggedUserRole === ROLE.ROLE_ADMINISTRATOR ? (
+            <Button variant="outline-danger">Obriši</Button>
           ) : (
             ""
           )}
-          {loggedUserRole === "ROLE_SERVICE_PROVIDER" &&
+          {loggedUserRole === ROLE.ROLE_SERVICE_PROVIDER &&
           loggedServiceProvider?.typeOfServiceProvider !== props.currentType &&
-          ((loggedServiceProvider?.typeOfServiceProvider !== "IGRAONICA" &&
-            props.currentType === "IGRAONICA") ||
-            loggedServiceProvider?.typeOfServiceProvider === "IGRAONICA") ? (
+          ((loggedServiceProvider?.typeOfServiceProvider !==
+            TYPE_OF_SERVICE_PROVIDER.PLAYROOM &&
+            props.currentType === TYPE_OF_SERVICE_PROVIDER.PLAYROOM) ||
+            loggedServiceProvider?.typeOfServiceProvider ===
+              TYPE_OF_SERVICE_PROVIDER.PLAYROOM) ? (
             <>
               {cooperationsRequests ? (
                 <>
                   {currentCooperation ? (
                     <>
                       {currentCooperation.confirmed === true ? (
-                        <Button variant="outline-danger" onClick={() => cancelCooporationClick()}>Otkaži saradnju</Button>
+                        <Button
+                          variant="outline-danger"
+                          onClick={() => cancelCooporationClick()}
+                        >
+                          Otkaži saradnju
+                        </Button>
                       ) : (
                         <>
                           {currentCooperation.requestSender ===
                           loggedServiceProvider?.id ? (
                             <Button disabled>Zahtev poslat</Button>
                           ) : (
-                            <Button onClick={(id) => sendRequestClick(props.service.id)} >Prihvati</Button>
+                            <Button
+                              onClick={(id) =>
+                                sendRequestClick(props.service.id)
+                              }
+                            >
+                              Prihvati
+                            </Button>
                           )}
                         </>
                       )}
                     </>
                   ) : (
-                    <Button variant="outline-primary" onClick={(id) => sendRequestClick(props.service.id)}>Pošalji zahtev</Button>
+                    <Button
+                      variant="outline-primary"
+                      onClick={(id) => sendRequestClick(props.service.id)}
+                    >
+                      Pošalji zahtev
+                    </Button>
                   )}
                 </>
               ) : (

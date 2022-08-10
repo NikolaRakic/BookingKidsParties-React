@@ -22,6 +22,7 @@ import OverviewOfSelectedProviderPage from './pages/OverviewOfSelectedProviderPa
 import SuccessPayloadPage from './pages/SuccessPayloadPage';
 import NotFoundPage from './pages/NotFoundPage';
 import ReservationsPage from './pages/ReservationsPage';
+import { ROLE } from './const/const';
 
 function App() {
   return (
@@ -40,7 +41,7 @@ function App() {
         <Route
           path="/pruzaoci-usluga/registracija"
           element={
-            <PrivateRoute role="ROLE_ADMINISTRATOR">
+            <PrivateRoute role={ROLE.ROLE_ADMINISTRATOR}>
               <ServiceProviderRegistracionPage />
             </PrivateRoute>
           }
@@ -48,7 +49,7 @@ function App() {
         <Route
           path="/pruzaoci-usluga/dodaj-ponudu"
           element={
-            <PrivateRoute role="ROLE_SERVICE_PROVIDER">
+            <PrivateRoute role={ROLE.ROLE_SERVICE_PROVIDER}>
               <AddServiceOfferPage />
             </PrivateRoute>
           }
@@ -56,7 +57,7 @@ function App() {
         <Route
           path="/izmeni-profil/:id"
           element={
-            <PrivateRoute role="ROLE_SERVICE_PROVIDER">
+            <PrivateRoute role={ROLE.ROLE_SERVICE_PROVIDER}>
               <EditServiceProviderProfilePage />
             </PrivateRoute>
           }

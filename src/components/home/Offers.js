@@ -44,7 +44,7 @@ export default function Ofers(props) {
 
   const sortArray = (type, offers, sortMethod) => {
     let sorted;
-    if (sortMethod == "ascending")
+    if (sortMethod === "ascending")
       sorted = [...offers].sort((a, b) => a[type] - b[type]);
     else sorted = [...offers].sort((a, b) => b[type] - a[type]);
     setOffers(sorted);
@@ -80,7 +80,7 @@ export default function Ofers(props) {
               key={index}
               offer={offer}
               localStorageNameItem={"playroomOfferId"}
-              nextUrl={"/dodatna-usluga/ketering"}
+              nextUrl={"/dodatna-usluga/catering"}
               showButton={true}
             />
           );

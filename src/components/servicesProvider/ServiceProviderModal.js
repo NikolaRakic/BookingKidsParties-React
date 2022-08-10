@@ -15,7 +15,7 @@ export default function ServiceProviderModal(props) {
     return () => { // function will be executed when the component unmounts
       setPhotos([]);
     };
-  }, [props.show]);
+  }, [props.show, service]);
 
   const getAllPhotosByServiceProviderId = async (serviceProviderId) => {
     try {

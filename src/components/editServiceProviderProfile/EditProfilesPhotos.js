@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState } from "react";
-import { Alert, Button, Col } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { Alert, Button } from "react-bootstrap";
 import { PhotoService } from "../../services/PhotoService";
 import SuccessUploadPhotoAlert from "./SuccessUploadPhotoAlert";
 
@@ -13,37 +13,40 @@ export default function EditProfilesPhotos(props) {
     getPhotos(serviceProviderId);
   }, [showSuccessModal]);
 
-  async function getPhotos(id) {
-    try {
-      const response = await PhotoService.getPhotos(id);
-      setPhotos(response.data);
-    } catch (error) {
-      console.error(
-        `Greška prilikom dobavljanja slika pruzaoca usluga ${id}: ${error}`
-      );
-    }
+  function getPhotos(id) {
+    PhotoService.getPhotos(id)
+      .then((res) => setPhotos(res.data))
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   const onFileChangeHandler = (e) => {
     const formData = new FormData();
     const image = e.target.files[0];
     formData.append("image", image);
-    PhotoService.uploadPhoto(formData, serviceProviderId).then((res) => {
-      setPhotos([...photos, res.data]);
-      setModalMessage("Nova slika je uspešno sačuvana");
-      setShowSuccessModal(true);
-    });
+    PhotoService.uploadPhoto(formData, serviceProviderId)
+      .then((res) => {
+        setPhotos([...photos, res.data]);
+        setModalMessage("Nova slika je uspešno sačuvana");
+        setShowSuccessModal(true);
+      })
+      .catch((error) => {
+        console.log(error.response.data);
+      });
   };
 
-  const  deletePhoto = (id) => () => {
-      try {
-        PhotoService.deletePhoto(id);
+  const deletePhoto = (id) => () => {
+    PhotoService.deletePhoto(id)
+      .then(() => {
         setModalMessage("Slika je uspešno obrisana");
         setShowSuccessModal(true);
-      } catch (error) {
-        console.error(error);
-      }
-    }
+      })
+      .catch((error) => {
+        alert("Greska!");
+        console.log(error);
+      });
+  };
 
   if (photos !== []) {
     return (
@@ -52,6 +55,7 @@ export default function EditProfilesPhotos(props) {
           return (
             <div className="center" key={index}>
               <img
+                alt="profile photo"
                 className="edit-photos"
                 src={`data:image;base64,${photo.data}`}
               />
@@ -65,7 +69,7 @@ export default function EditProfilesPhotos(props) {
             </div>
           );
         })}
-        {photos.length < 5 ? (
+        {photos.length < 6 ? (
           <div className="form-group files color upload-form">
             <input
               type="file"
@@ -76,18 +80,16 @@ export default function EditProfilesPhotos(props) {
             />
           </div>
         ) : (
-          <Alert variant="info">
-            Imate maksimalan broj slika
-          </Alert>
+          <Alert variant="info">Imate maksimalan broj slika</Alert>
         )}
-        <SuccessUploadPhotoAlert setShowSuccessModal={setShowSuccessModal} modalMessage={modalMessage} showSuccessModal={showSuccessModal}/>
+        <SuccessUploadPhotoAlert
+          setShowSuccessModal={setShowSuccessModal}
+          modalMessage={modalMessage}
+          showSuccessModal={showSuccessModal}
+        />
       </>
     );
   } else {
     return <></>;
   }
-
-  return(
-      <>{alert("aloo")}</>
-  )
 }

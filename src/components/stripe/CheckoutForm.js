@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import {
   PaymentElement,
   useStripe,
-  useElements
+  useElements,
 } from "@stripe/react-stripe-js";
 
-import "./stripe.css"
+import "./stripe.css";
 import { ReservationService } from "../../services/ReservationService";
 import { StripeClient } from "../../services/Clients/StripeClient";
 import { TokenService } from "../../services/TokenService";
@@ -18,24 +18,19 @@ export default function CheckoutForm(props) {
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [clientSecret, setClientSecret] = useState();
-  const [paymentIntent2, setPaymentIntent] = useState();
 
   useEffect(() => {
     if (!stripe) {
       return;
     }
 
-    setClientSecret(props.clientSecret)
+    setClientSecret(props.clientSecret);
 
     if (!clientSecret) {
       return;
     }
 
     stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
-      console.log("aaaaaaaaaaaaaaaaaaaaaaaa")
-      console.log("PAYMENT: " + JSON.stringify(paymentIntent))
-      console.log(paymentIntent)
-      setPaymentIntent(paymentIntent)
       switch (paymentIntent.status) {
         case "succeeded":
           setMessage("Payment succeeded!");
@@ -54,23 +49,21 @@ export default function CheckoutForm(props) {
   }, [stripe]);
 
   const createReservation = async (newReservation) => {
-    try{
+    try {
       await ReservationService.createReservation(newReservation);
       const token = localStorage.getItem("token");
-      
+
       localStorage.clear();
-      
-      if(TokenService.decodeToken(token)){
-        localStorage.setItem("token", token)
+
+      if (TokenService.decodeToken(token)) {
+        localStorage.setItem("token", token);
       }
-      window.location.assign("/uspesno-placanje")
-    }
-    catch(error){
-      StripeClient.refund(props.paymentIntentId)
+      window.location.assign("/uspesno-placanje");
+    } catch (error) {
+      StripeClient.refund(props.paymentIntentId);
       alert("Greska! " + error);
     }
   };
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -80,7 +73,7 @@ export default function CheckoutForm(props) {
       // Make sure to disable form submission until Stripe.js has loaded.
       return;
     }
- 
+
     setIsLoading(true);
 
     const { error } = await stripe.confirmPayment({
@@ -91,21 +84,19 @@ export default function CheckoutForm(props) {
         receipt_email: email,
       },
     });
-    
-    if(!error){
+
+    if (!error) {
       let serviceOffers = [];
       const playroomOfferId = localStorage.getItem("playroomOfferId");
-      serviceOffers.push(playroomOfferId)
-    
+      serviceOffers.push(playroomOfferId);
+
       const cateringOfferId = localStorage.getItem("cateringOfferId");
 
-      if(cateringOfferId != null)
-          serviceOffers.push(cateringOfferId);
+      if (cateringOfferId != null) serviceOffers.push(cateringOfferId);
 
-      const animatorOfferId = localStorage.getItem("animatorOfferId")
+      const animatorOfferId = localStorage.getItem("animatorOfferId");
 
-      if(animatorOfferId != null)
-          serviceOffers.push(animatorOfferId)
+      if (animatorOfferId != null) serviceOffers.push(animatorOfferId);
 
       const reservationRequestDTO = {
         dateOfReservation: localStorage.getItem("date"),
@@ -116,31 +107,25 @@ export default function CheckoutForm(props) {
         additionalRequirements: props.additionalInformations.additionalRequest,
         ageOfKid: props.additionalInformations.ageOfKids,
         usersEmail: email,
-        serviceOffers:serviceOffers
-      }
-
- 
+        serviceOffers: serviceOffers,
+      };
 
       createReservation(reservationRequestDTO);
-    }
-
-    else{
+    } else {
       if (error.type === "card_error" || error.type === "validation_error") {
         setMessage(error.message);
       } else {
         setMessage("An unexpected error occurred.");
       }
-  
+
       setIsLoading(false);
     }
-
-
   };
 
   return (
     <form id="payment-form" onSubmit={handleSubmit}>
-        <label>Email</label>
-        <br/>
+      <label>Email</label>
+      <br />
       <input
         id="email-input"
         className="email-label-stripe"
@@ -149,11 +134,16 @@ export default function CheckoutForm(props) {
         onChange={(e) => setEmail(e.target.value)}
         placeholder="example@gmail.com"
       />
-      <br/><br/>
+      <br />
+      <br />
       <PaymentElement id="payment-element" />
       <button disabled={isLoading || !stripe || !elements} id="submit">
         <span id="button-text">
-          {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now " + props.amount}
+          {isLoading ? (
+            <div className="spinner" id="spinner"></div>
+          ) : (
+            "Pay now " + props.amount
+          )}
         </span>
       </button>
       {/* Show any error or success messages */}

@@ -18,8 +18,8 @@ export default function Pagination1(props) {
         {pageNumbers.map((number, index )=> (
             <Pagination.Item key={index} className={currentPage === number? "active" : ""} onClick={() => paginateHandler(number)}>{number+1}</Pagination.Item>
         ))}
-        <Pagination.Next className={currentPage === totalPages - 1 || totalPages == 0 ? "disabled" : ""} onClick={() => paginateHandler(currentPage+1)}/>
-        <Pagination.Last className={currentPage === totalPages - 1 || totalPages == 0 ? "disabled" : ""} onClick={() => paginateHandler(totalPages - 1)}/>
+        <Pagination.Next className={currentPage === totalPages - 1 || totalPages === 0 ? "disabled" : ""} onClick={() => paginateHandler(currentPage+1)}/>
+        <Pagination.Last className={currentPage === totalPages - 1 || totalPages === 0 ? "disabled" : ""} onClick={() => paginateHandler(totalPages - 1)}/>
       </Pagination>
     </div>
   );

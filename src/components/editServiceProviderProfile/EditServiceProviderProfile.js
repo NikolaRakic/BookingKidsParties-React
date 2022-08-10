@@ -1,6 +1,5 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
-  Button,
   Col,
   Container,
   Row,
@@ -49,7 +48,6 @@ export default function EditServiceProviderProfile() {
   };
 
   const handleTimeInputChange = (name, time) => {
-    console.log(name + " " + time);
     setServiceProvider({ ...serviceProvider, [name]: time });
     console.log(serviceProvider);
   };

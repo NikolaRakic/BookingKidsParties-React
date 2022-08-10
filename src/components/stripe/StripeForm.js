@@ -17,7 +17,7 @@ export default function StripeForm(props) {
 
   useEffect(() => {
     stripePayment(additionalInformations, props.amount)
-  }, []);
+  }, [additionalInformations, props.amount]);
 
   const stripePayment = async (additionalInformations, amount) => {
     try {

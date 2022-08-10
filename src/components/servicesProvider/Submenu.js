@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Nav from "react-bootstrap/Nav";
+import { TYPE_OF_SERVICE_PROVIDER } from "../../const/const";
 
 export default function Submenu(props) {
   const [currentType, setCurrentType] = useState(props.curType);
@@ -18,13 +19,13 @@ export default function Submenu(props) {
       onSelect={(typeOfService) => changeType(typeOfService)}
     >
       <Nav.Item>
-        <Nav.Link eventKey="IGRAONICA">Igraonice</Nav.Link>
+        <Nav.Link eventKey={TYPE_OF_SERVICE_PROVIDER.PLAYROOM}>Igraonice</Nav.Link>
       </Nav.Item>
       <Nav.Item>
-        <Nav.Link eventKey="KETERING">Ketering</Nav.Link>
+        <Nav.Link eventKey={TYPE_OF_SERVICE_PROVIDER.CATERING}>Ketering</Nav.Link>
       </Nav.Item>
       <Nav.Item>
-        <Nav.Link eventKey="ANIMATOR">Animatori</Nav.Link>
+        <Nav.Link eventKey={TYPE_OF_SERVICE_PROVIDER.ANIMATOR}>Animatori</Nav.Link>
       </Nav.Item>
     </Nav>
   );
