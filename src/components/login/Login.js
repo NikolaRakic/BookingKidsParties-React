@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Button, Alert } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import { AuthenticationService } from "../../services/AuthenticationService";
 import LoginForm from "./LoginForm";
 
@@ -10,6 +11,7 @@ export default function Login() {
   });
 
   const [errorMessage, setErrorMessage] = useState(false);
+  let navigate = useNavigate();
 
   const handleFormInputChange = (name) => (event) => {
     const val = event.target.value;
@@ -51,7 +53,7 @@ export default function Login() {
           </form>
         </div>
       ) : (
-        window.location.assign("/")
+        navigate("/")
       )}
     </div>
   );

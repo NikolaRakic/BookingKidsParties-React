@@ -18,7 +18,7 @@ async function createPayment(name, email, amount) {
 async function refund(paymentIntentId) {
   return await BookingKidsPartiesClient.post(`/payment/refund`,{}, {
     headers: {
-      paymentIntentId: paymentIntentId
+      clientSecret: paymentIntentId
     }
   });
 }

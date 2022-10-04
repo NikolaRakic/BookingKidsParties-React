@@ -9,6 +9,7 @@ import "./stripe.css";
 import { ReservationService } from "../../services/ReservationService";
 import { StripeClient } from "../../services/Clients/StripeClient";
 import { TokenService } from "../../services/TokenService";
+import { useNavigate } from "react-router-dom";
 
 export default function CheckoutForm(props) {
   const stripe = useStripe();
@@ -18,6 +19,7 @@ export default function CheckoutForm(props) {
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [clientSecret, setClientSecret] = useState();
+  let navigate = useNavigate();
 
   useEffect(() => {
     if (!stripe) {
@@ -58,7 +60,7 @@ export default function CheckoutForm(props) {
       if (TokenService.decodeToken(token)) {
         localStorage.setItem("token", token);
       }
-      window.location.assign("/uspesno-placanje");
+      navigate("/uspesno-placanje");
     } catch (error) {
       StripeClient.refund(props.paymentIntentId);
       alert("Greska! " + error);

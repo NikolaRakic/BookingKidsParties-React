@@ -2,7 +2,7 @@ import { ServiceProviderService } from "../services/ServiceProviderService";
 import ratingService from "../services/RatingService";
 import React from "react";
 import { useEffect, useState } from "react";
-import Navigation from "../components/nav/Navigation";
+import Navigation from "../components/global/Navigation";
 import ServiceProviderProfile from "../components/ServiceProviderProfile.js/ServiceProviderProfile";
 import { useParams } from "react-router-dom";
 import { PhotoService } from "../services/PhotoService";

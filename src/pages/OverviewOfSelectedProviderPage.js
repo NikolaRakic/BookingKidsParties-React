@@ -1,5 +1,5 @@
-import ArrowAltCircle from "../components/arrowNavigation/ArrowAltCircle";
-import Navigation from "../components/nav/Navigation";
+import ArrowAltCircle from "../components/global/ArrowAltCircle";
+import Navigation from "../components/global/Navigation";
 import OverviewOfSelectedProvider from "../components/overviewOfSelectedProvider/OverviewOfSelectedProvider";
 
 export default function OverviewOfSelectedProviderPage(){

@@ -1,4 +1,4 @@
-import Navigation from "../components/nav/Navigation";
+import Navigation from "../components/global/Navigation";
 import ServiceProviderRegistration from "../components/serviceProviderRegistration/ServiceProviderRegistration";
 
 export default function ServiceProviderRegistracionPage() {

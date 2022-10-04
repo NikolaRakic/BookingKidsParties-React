@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Button, Alert, Modal } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import { ServiceOfferService } from "../../services/ServiceOfferService";
 import AddServiceOfferForm from "./AddServiceOfferForm";
 
@@ -18,12 +19,12 @@ export default function AddServiceOffer() {
   });
 
   const [failRegistrationMessage, setFailRegistrationMessage] = useState(false);
-
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  let navigate = useNavigate();
 
   const handleClose = () => {
     setShowSuccessModal(false);
-    window.location.assign("/pocetna");
+    navigate("/pocetna");
   };
 
   const handleFormInputChange = (name) => (event) => {

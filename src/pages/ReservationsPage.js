@@ -1,4 +1,4 @@
-import Navigation from "../components/nav/Navigation";
+import Navigation from "../components/global/Navigation";
 import Reservations from "../components/reservations/Reservations";
 
 export default function ReservationPage() {

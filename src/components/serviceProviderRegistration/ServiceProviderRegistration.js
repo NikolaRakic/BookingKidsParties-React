@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, Alert, Modal } from "react-bootstrap";
 import ServiceProviderRegistrationForm from "./ServiceProviderRegistrationForm";
 import { ServiceProviderService } from "../../services/ServiceProviderService";
+import { useNavigate } from "react-router-dom";
 
 export default function ServiceProviderRegistration() {
   const [newServiceProvider, setNewServiceProvider] = useState({
@@ -18,13 +19,13 @@ export default function ServiceProviderRegistration() {
     adress: "",
     telephoneNumber: "",
   });
-
+  let navigate = useNavigate();
   const [failRegistrationMessage, setFailRegistrationMessage] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const handleClose = () => {
     setShowSuccessModal(false);
-    window.location.assign("/pocetna");
+    navigate("/pocetna");
   };
 
   const handleFormInputChange = (name) => (event) => {

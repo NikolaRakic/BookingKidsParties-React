@@ -1,6 +1,6 @@
 import Pagination from "react-bootstrap/Pagination";
 
-export default function Pagination1(props) {
+export default function PaginationComponent(props) {
   const totalPages = props.pageNumbers;
   const currentPage = props.currentPage;
   const pageNumbers = [];

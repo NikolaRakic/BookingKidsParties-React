@@ -51,7 +51,6 @@ export default function Navigation() {
             ) : (
               <>
                 <Nav.Link href={"/rezervacije"} className={`${pathname.match("/rezervacije") ? "active" : ""}`}>Rezervacije</Nav.Link>
-                <Nav.Link>{AuthenticationService.getUsername()}</Nav.Link>
                 <Nav.Link onClick={logOut}>Odjava</Nav.Link>
                 {AuthenticationService.getRole() === ROLE.ROLE_ADMINISTRATOR ? (
                   <>
@@ -73,6 +72,7 @@ export default function Navigation() {
                     <Nav.Link href="/pruzaoci-usluga/registracija">
                       Dodaj pružaoca usluga
                     </Nav.Link>
+                    <Nav.Link>{AuthenticationService.getUsername()}</Nav.Link>
                   </>
                 ) : (
                   <>
@@ -80,6 +80,7 @@ export default function Navigation() {
                     ROLE.ROLE_SERVICE_PROVIDER ? (
                       <>
                       <Nav.Link href="/pruzaoci-usluga/dodaj-ponudu">Dodaj ponudu</Nav.Link>
+                      <Nav.Link href={"/pruzaoci-usluga/" + AuthenticationService.getUserId()}>{AuthenticationService.getUsername()}</Nav.Link>
                       <Nav.Link href={"/izmeni-profil/" + AuthenticationService.getUserId()}>Izmeni profil</Nav.Link>
                       </>
                       //logged user/parent

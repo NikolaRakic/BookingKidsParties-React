@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import ServiceOfferCard from "../serviceOfferCard/ServiceOfferCard";
 import { ServiceOfferService } from "../../services/ServiceOfferService";
 
-import ArrowAltCircle from "../arrowNavigation/ArrowAltCircle";
+import ArrowAltCircle from "../global/ArrowAltCircle";
 import { TYPE_OF_SERVICE_PROVIDER } from "../../const/const";
 
 export default function AdditionalServiceOffer() {

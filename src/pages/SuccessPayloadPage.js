@@ -1,5 +1,5 @@
 import "../css/SuccessAnimation.css";
-import Navigation from "../components/nav/Navigation";
+import Navigation from "../components/global/Navigation";
 
 export default function SuccessPayloadPage() {
   return (

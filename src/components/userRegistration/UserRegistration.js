@@ -16,10 +16,9 @@ export default function UserRegistration() {
   });
 
   const [failRegistrationMessage, setFailRegistrationMessage] = useState(false);
-  const [successRegistrationMessage, setSuccessRegistrationMessage] =
-    useState(false);
-  let navigate = useNavigate();
+  const [successRegistrationMessage, setSuccessRegistrationMessage] = useState(false);
   const [failRegistrationMessageText, setFailRegistrationMessageText] = useState("");
+  let navigate = useNavigate();
 
   const handleFormInputChange = (name) => (event) => {
     const val = event.target.value;
@@ -78,7 +77,7 @@ export default function UserRegistration() {
           </Button>
         </div>
       ) : (
-        window.location.assign("/")
+        navigate("/")
       )}
     </div>
   );

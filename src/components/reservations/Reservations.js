@@ -3,8 +3,9 @@ import { AuthenticationService } from "../../services/AuthenticationService";
 import Table from "react-bootstrap/Table";
 import { ReservationService } from "../../services/ReservationService";
 import ReservationsTableRow from "./ReservationsTableRow";
-import Pagination1 from "../pagination/Pagination";
+import PaginationComponent from "../global/Pagination";
 import { ROLE } from "../../const/const";
+import { useNavigate } from "react-router-dom";
 
 export default function Reservations() {
   const [reservations, setReservations] = useState([]);
@@ -13,12 +14,12 @@ export default function Reservations() {
   const [isDisabled, setIsDisabled] = useState(false);
   const [totalPages, setTotalPages] = useState() 
   const [page, setPage] = useState(0);
-
+  let navigate = useNavigate();
   useEffect(() => {
     setIsDisabled(false);
     if (!userRole) {
       alert("zabranjen pristup!");
-      window.location.assign("/not-found");
+      navigate("/not-found");
     }
     getReservations(userRole, userId);
   }, [isDisabled, page]);
@@ -77,7 +78,7 @@ export default function Reservations() {
           })}
         </tbody>
       </Table>
-      <Pagination1 
+      <PaginationComponent 
         pageNumbers={totalPages}
         changePage={setPage}
         currentPage={page}
