@@ -13,7 +13,7 @@ import HomePage from './pages/HomePage';
 import ServiceProviderProfilePage from './pages/ServiceProviderProfilePage';
 import LoginPage from './pages/LoginPage';
 import UserRegistrationPage from './pages/UserRegistrationPage';
-import PrivateRoute from './PrivateRoute';
+import PrivateRoute from './components/global/PrivateRoute';
 import ServiceProviderRegistracionPage from './pages/ServiceProviderRegistrationPage';
 import AddServiceOfferPage from './pages/AddServiceOfferPage';
 import EditServiceProviderProfilePage from './pages/EditServiceProviderProfilePage';
